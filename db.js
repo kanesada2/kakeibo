@@ -3,43 +3,48 @@ var indexedDB = window.indexedDB || window.webkitIndexedDB || window.mozIndexedD
 var IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.mozIDBTransaction || window.msIDBTransaction;
 var IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.mozIDBKeyRange || window.msIDBKeyRange;
 var IDBCursor = window.IDBCursor || window.webkitIDBCursor;
-//indexedDB.deleteDatabase("kakeibo");
-var req = indexedDB.open("kakeibo", 1);
 var db;
-req.onsuccess = function (event) {
-    db = this.result;
-    /*var transaction = db.transaction(["shops", "categories", "columns"], "readwrite");
+//indexedDB.deleteDatabase("kakeibo");
+function opendb() {
+    var req = indexedDB.open("kakeibo", 1);
     
-    var columnsStore = transaction.objectStore("columns");
-    
-    columnsStore.openCursor().onsuccess = function (event) {
-       var cursor = event.target.result;
-       if (cursor) {
-           console.log(cursor.value);
-           cursor.continue();
-       }
-   };*/
-};
-req.onerror = function (event) {
-    alert("error");
-};
-req.onupgradeneeded = function (event) {
-    var db = event.target.result;
-    var shopsStore = db.createObjectStore("shops", {keyPath: "id", autoIncrement: true});
-    var categoriesStore = db.createObjectStore("categories", {keyPath: "id", autoIncrement: true});
-    var columnsStore = db.createObjectStore("columns", {keyPath: "id", autoIncrement: true});
-    
-    columnsStore.createIndex('date', 'date', { unique: false });
-    columnsStore.createIndex('sh', ['shop', 'date'], { unique: false });
-    columnsStore.createIndex('ca', ['category', 'date'], { unique: false });
-    columnsStore.createIndex('sp', ['hasSpecial', 'date'], { unique: false });
-    columnsStore.createIndex('shsp', ['shop', 'hasSpecial', 'date'], { unique: false });
-    columnsStore.createIndex('casp', ['category', 'hasSpecial', 'date'], { unique: false });
-    columnsStore.createIndex('shca', ['shop', 'category', 'date'], { unique: false });
-    columnsStore.createIndex('shcasp', ['shop', 'category', 'hasSpecial', 'date'], { unique: false });
-    
-};
+    req.onupgradeneeded = function (event) {
+        var db = event.target.result;
+        var shopsStore = db.createObjectStore("shops", {keyPath: "id", autoIncrement: true});
+        var categoriesStore = db.createObjectStore("categories", {keyPath: "id", autoIncrement: true});
+        var columnsStore = db.createObjectStore("columns", {keyPath: "id", autoIncrement: true});
 
+        columnsStore.createIndex('date', 'date', { unique: false });
+        columnsStore.createIndex('sh', ['shop', 'date'], { unique: false });
+        columnsStore.createIndex('ca', ['category', 'date'], { unique: false });
+        columnsStore.createIndex('sp', ['hasSpecial', 'date'], { unique: false });
+        columnsStore.createIndex('shsp', ['shop', 'hasSpecial', 'date'], { unique: false });
+        columnsStore.createIndex('casp', ['category', 'hasSpecial', 'date'], { unique: false });
+        columnsStore.createIndex('shca', ['shop', 'category', 'date'], { unique: false });
+        columnsStore.createIndex('shcasp', ['shop', 'category', 'hasSpecial', 'date'], { unique: false });
+
+    };
+    return new Promise(function (resolve,reject){
+        req.onsuccess = function (event) {
+            db = this.result;
+            /*var transaction = db.transaction(["shops", "categories", "columns"], "readwrite");
+
+            var columnsStore = transaction.objectStore("columns");
+
+            columnsStore.openCursor().onsuccess = function (event) {
+               var cursor = event.target.result;
+               if (cursor) {
+                   console.log(cursor.value);
+                   cursor.continue();
+               }
+           };*/
+            resolve(db);
+        };
+        req.onerror = function (event) {
+        reject("error");
+    };
+    })
+}
 function addToDb (table, data) {
     var transaction = db.transaction(table, 'readwrite');
     var store = transaction.objectStore(table);
@@ -65,7 +70,7 @@ function deleteFromDb (table, key) {
 }
 
 function prepareSelect () {
-     var transaction = db.transaction(["shops", "categories"], 'readonly');
+    var transaction = db.transaction(["shops", "categories"], 'readonly');
     var shopsStore = transaction.objectStore("shops");
     var categoriesStore = transaction.objectStore("categories");
     var shops = [];

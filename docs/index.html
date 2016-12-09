@@ -115,37 +115,6 @@
                     <td><button class="pure-button pure-button-primary" v-on:click="addColumn">追加</button></td>
 		        </tr>
                 </form>
-                <tr v-if="onEdit">
-                    <td>
-                        <input id="edDate" type="date" v-model="edDate" value="{{ defDate }}">
-                    </td>
-                    <td>
-                        <select id="edShop"  v-model="edShop">
-                            <option value="" selected disabled>店名</option>
-                            <option v-for="shop in shops" value="{{ shop.value }}">{{ shop.value }}</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select id="edCategory"  v-model="edCategory">
-                            <option value="" selected disabled>分類</option>
-                            <option v-for="category in categories" value="{{ category.value }}">{{ category.value }}</option>
-                        </select>
-                    </td>
-                    <td>
-                        <input id="edCost" type="number" placeholder="金額" v-model="edCost">
-                    </td>
-                    <td>
-                        <label for="edSpecial" class="pure-checkbox">
-                            <input id="edSpecial" type="checkbox"  v-model="edSpecial">特記
-                        </label>
-                    </td>
-                    <td>
-                        <textarea id="edNote" v-model="edNote"></textarea>
-                    </td>
-                    <td>
-                        <button class="pure-button button-success" v-on:click="editColumn(this.editID)">完了</button>
-                    </td>
-                </tr>
                 <tr v-for="column in columns">
                     <td>
                         {{ formatDate(column.date) }}

@@ -1,4 +1,9 @@
-window.onload = function () {
+window.onload = function (){
+    opendb().then(function () {
+        render();
+    })
+}
+function render() {
     var menu = new Vue({
         el: '#leftmenu',
         data: {
@@ -155,4 +160,4 @@ window.onload = function () {
             }
     }
 })
-};
+}
