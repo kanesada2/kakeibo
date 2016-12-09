@@ -6,8 +6,25 @@ var IDBCursor = window.IDBCursor || window.webkitIDBCursor;
 //indexedDB.deleteDatabase("kakeibo");
 var req = indexedDB.open("kakeibo", 1);
 var db;
+req.onsuccess = function (event) {
+    db = this.result;
+    /*var transaction = db.transaction(["shops", "categories", "columns"], "readwrite");
+    
+    var columnsStore = transaction.objectStore("columns");
+    
+    columnsStore.openCursor().onsuccess = function (event) {
+       var cursor = event.target.result;
+       if (cursor) {
+           console.log(cursor.value);
+           cursor.continue();
+       }
+   };*/
+};
+req.onerror = function (event) {
+    alert("error");
+};
 req.onupgradeneeded = function (event) {
-    db = event.target.result;
+    var db = event.target.result;
     var shopsStore = db.createObjectStore("shops", {keyPath: "id", autoIncrement: true});
     var categoriesStore = db.createObjectStore("categories", {keyPath: "id", autoIncrement: true});
     var columnsStore = db.createObjectStore("columns", {keyPath: "id", autoIncrement: true});
@@ -21,24 +38,6 @@ req.onupgradeneeded = function (event) {
     columnsStore.createIndex('shca', ['shop', 'category', 'date'], { unique: false });
     columnsStore.createIndex('shcasp', ['shop', 'category', 'hasSpecial', 'date'], { unique: false });
     
-};
-
-req.onerror = function (event) {
-    console.log("error");
-};
-req.onsuccess = function (event) {
-    db = req.result;
-    /*var transaction = db.transaction(["shops", "categories", "columns"], "readwrite");
-    
-    var columnsStore = transaction.objectStore("columns");
-    
-    columnsStore.openCursor().onsuccess = function (event) {
-       var cursor = event.target.result;
-       if (cursor) {
-           console.log(cursor.value);
-           cursor.continue();
-       }
-   };*/
 };
 
 function addToDb (table, data) {
