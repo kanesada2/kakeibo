@@ -7,7 +7,7 @@ var IDBCursor = window.IDBCursor || window.webkitIDBCursor;
 var req = indexedDB.open("kakeibo", 1);
 var db;
 req.onupgradeneeded = function (event) {
-    var db = event.target.result;
+    db = event.target.result;
     var shopsStore = db.createObjectStore("shops", {keyPath: "id", autoIncrement: true});
     var categoriesStore = db.createObjectStore("categories", {keyPath: "id", autoIncrement: true});
     var columnsStore = db.createObjectStore("columns", {keyPath: "id", autoIncrement: true});
