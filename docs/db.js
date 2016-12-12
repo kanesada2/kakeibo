@@ -47,6 +47,7 @@ function opendb() {
 }
 function addToDb (table, data) {
     var transaction = db.transaction(table, 'readwrite');
+    console.log('called successfully');
     var store = transaction.objectStore(table);
     var req = store.add(data);
     req.onsuccess = function (event) {
