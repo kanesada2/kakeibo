@@ -47,10 +47,10 @@
             <fieldset>
                 <label for="adShop">店名:</label>
                     <input type="text" id="adShop" v-model="adShop">
-                    <button v-if="adShop" v-on:click="addShop" class="pure-button pure-button-primary">追加</button>
+                    <button v-if="adShop" v-on:click.prevent="addShop" class="pure-button pure-button-primary">追加</button>
                 <label for="adCategory">分類:</label>
                     <input type="text" id="adCategory" v-model="adCategory">
-                    <button v-if="adCategory" v-on:click="addCategory" class="pure-button pure-button-primary">追加</button>
+                    <button v-if="adCategory" v-on:click.prevent="addCategory" class="pure-button pure-button-primary">追加</button>
             </fieldset>
             </form>
             </div>
