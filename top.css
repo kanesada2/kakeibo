@@ -9,6 +9,13 @@ hr{
 	border-top: 1px solid rgba(0, 0, 0, .1);
 	box-shadow(rgba(255, 255, 255, .1) 0 1px 0 inset);
 }
+input,select{
+    color:#000;
+}
+th{
+    background: rgb(61, 79, 93);
+    color:#fff;
+}
 table.main{
     margin-bottom: 1em;
 }
@@ -16,8 +23,13 @@ table.main{
 	height:100%;
 }
 .left{
-	height:100%;
-    text-align:center;
+    height:100%;
+    background: rgb(61, 79, 93);
+    color:#fff;
+    overflow: scroll;
+}
+.left::-webkit-scrollbar {
+  display: none;
 }
 .leftmenu{
 	list-style-type:none;
@@ -25,6 +37,27 @@ table.main{
 }
 .leftmenu form{
     margin-left:-1em;
+}
+.logo{
+    margin: 2em .2em 0 .2em;
+    font-family: 'Lobster', cursive;
+}
+.mark:hover{
+    animation: hurueru .2s  infinite;
+}
+@keyframes hurueru {
+    0% {transform: translate(0px, 0px) rotateZ(0deg)}
+    25% {transform: translate(2px, 2px) rotateZ(1deg)}
+    50% {transform: translate(0px, 2px) rotateZ(0deg)}
+    75% {transform: translate(2px, 0px) rotateZ(-1deg)}
+    100% {transform: translate(0px, 0px) rotateZ(0deg)}
+}
+.title{
+    line-height:64px;
+    font-size:3em;
+}
+.right{
+    padding-left:1em;
 }
 .hidden{
     display:none;

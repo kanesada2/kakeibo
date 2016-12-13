@@ -5,6 +5,7 @@
 <meta charset="UTF-8" />
 <title>家計簿</title>
 <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.0/build/pure-min.css">
+<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
 <link rel="stylesheet" href="top.css">
 <script src="https://use.fontawesome.com/7edd816f83.js"></script>
 <script src="db.js"></script>
@@ -13,7 +14,12 @@
 </head>
 <body>
 <div class="pure-g maingrid">
-	<div class="pure-u-4-24" id="leftmenu">
+	<div class="pure-u-4-24 left" id="leftmenu">
+        <div class="logo">
+            <object type="image/svg+xml" class="mark" data="logo.svg" width="48" height="48">
+            </object>
+            <span class="title">Kakeibo</span>
+        </div>
         <ul class="leftmenu">
         <li>
             <button class="pure-button button-normal" v-on:click='isHidden1=!isHidden1'>
@@ -54,10 +60,16 @@
             <fieldset>
                 <label for="adShop">店名:</label>
                     <input type="text" id="adShop" v-model="adShop">
-                    <button v-if="adShop" v-on:click.prevent="addShop" class="pure-button pure-button-primary">追加</button>
+                    <button v-show="adShop" v-on:click.prevent="addShop" class="pure-button button-normal">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                        追加
+                    </button>
                 <label for="adCategory">分類:</label>
                     <input type="text" id="adCategory" v-model="adCategory">
-                    <button v-if="adCategory" v-on:click.prevent="addCategory" class="pure-button pure-button-primary">追加</button>
+                    <button v-show="adCategory" v-on:click.prevent="addCategory" class="pure-button button-normal">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                        追加
+                    </button>
             </fieldset>
             </form>
             </div>
@@ -74,12 +86,18 @@
                     <select id="dlShop" v-model="dsval">
                         <option v-for="shop in shops" value="{{ shop.key }}">{{ shop.value }}</option>
                     </select>
-                <button class="pure-button button-error" v-on:click.prevent="delShop">削除</button>
+                <button class="pure-button button-error" v-on:click.prevent="delShop">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                    削除
+                </button>
                 <label for="dlCategory">分類:</label>
                     <select id="dlCategory" v-model="dcval">
                         <option v-for="category in categories" value="{{ category.key }}">{{ category.value }}</option>
                     </select>
-                <button class="pure-button button-error" v-on:click.prevent="delCategory">削除</button>
+                <button class="pure-button button-error" v-on:click.prevent="delCategory">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                    削除
+                </button>
             </fieldset>
             </form>
             </div>
@@ -87,93 +105,95 @@
         </ul>
     </div>
 	<div class="pure-u-20-24" id="columntable">
-		<table class="pure-table pure-table-horizontal main" >
-		    <thead>
-		        <tr>
-		            <th>日付</th>
-		            <th>店</th>
-		            <th>分類</th>
-		            <th>金額</th>
-                    <th>特記</th>
-                    <th>備考</th>
-		            <th>削除</th>
-		        </tr>
-		    </thead>
+		<div class="right">
+            <table class="pure-table pure-table-horizontal main" >
+                <thead>
+                    <tr>
+                        <th>日付</th>
+                        <th>店</th>
+                        <th>分類</th>
+                        <th>金額</th>
+                        <th>特記</th>
+                        <th>備考</th>
+                        <th>削除</th>
+                    </tr>
+                </thead>
 
-		    <tbody>
-                <form class="pure-form">
-                <tr>
-		            <td><input id="inDate" type="date" v-model="inDate" value="{{ defDate }}"></td>
-		            <td><select id="inShop"  v-model="inShop">
-                            <option value="" selected disabled>店名</option>
-                            <option v-for="shop in shops" value="{{ shop.value }}">{{ shop.value }}</option>
-                        </select></td>
-		            <td><select id="inCategory"  v-model="inCategory">
-                            <option value="" selected disabled>分類</option>
-                            <option v-for="category in categories" value="{{ category.value }}">{{ category.value }}</option>
-                        </select></td>
-		            <td><input id="inCost" type="number" placeholder="金額" min="0" v-model="inCost" required></td>
-                    <td>
-                        <label for="inSpecial" class="pure-checkbox">
-                            <input id="inSpecial" type="checkbox"  v-model="inSpecial">特記
-                        </label>
-                    </td>
-                     <td>
-                         <textarea id="inNote" v-model="inNote"></textarea>
-                    </td>
-                    <td><button class="pure-button button-normal" v-on:click.prevent="addColumn">
-                        <i class="fa fa-check" aria-hidden="true"></i>
-                        追加
-                    </button></td>
-		        </tr>
-                </form>
-                <tr v-for="column in columns">
-                    <td>
-                        {{ formatDate(column.date) }}
-                    </td>
-                    <td>
-                        {{ column.shop }}
-                    </td>
-                    <td>
-                        {{ column.category }}
-                    </td>
-                    <td>
-                        \{{ formatCurrency(column.cost) }}
-                    </td>
-                    <td>
-                        {{ column.hasSpecial }}
-                    </td>
-                    <td>
-                        {{ column.note }}
-                    </td>
-                    <td><button class="pure-button button-error" v-on:click.prevent="deleteColumn(column.id)">
-                        <i class="fa fa-trash" aria-hidden="true"></i>
-                        削除
-                    </button></td>
-                </tr>
-		    </tbody>
-		</table>
-        <div class="pure-g">
-            <div class="pure-u-1-3">
-                <table class="pure-table  pure-table-bordered monthtable">
-                    <tr v-for="tmonth in tmonths">
-                        <td>{{ tmonth.item }}</td><td>\{{ formatCurrency(tmonth.cost) }}</td>
+                <tbody>
+                    <form class="pure-form">
+                    <tr>
+                        <td><input id="inDate" type="date" v-model="inDate" value="{{ defDate }}"></td>
+                        <td><select id="inShop"  v-model="inShop">
+                                <option value="" selected disabled>店名</option>
+                                <option v-for="shop in shops" value="{{ shop.value }}">{{ shop.value }}</option>
+                            </select></td>
+                        <td><select id="inCategory"  v-model="inCategory">
+                                <option value="" selected disabled>分類</option>
+                                <option v-for="category in categories" value="{{ category.value }}">{{ category.value }}</option>
+                            </select></td>
+                        <td><input id="inCost" type="number" placeholder="金額" min="0" v-model="inCost" required></td>
+                        <td>
+                            <label for="inSpecial" class="pure-checkbox">
+                                <input id="inSpecial" type="checkbox"  v-model="inSpecial">特記
+                            </label>
+                        </td>
+                         <td>
+                             <textarea id="inNote" v-model="inNote"></textarea>
+                        </td>
+                        <td><button class="pure-button button-normal" v-on:click.prevent="addColumn">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            追加
+                        </button></td>
                     </tr>
-                </table>
-            </div>
-            <div class="pure-u-1-3">
-                <table class="pure-table  pure-table-bordered shoptable">
-                    <tr v-for="tshop in tshops">
-                        <td>{{ tshop.item }}</td><td>\{{ formatCurrency(tshop.cost) }}</td>
+                    </form>
+                    <tr v-for="column in columns">
+                        <td>
+                            {{ formatDate(column.date) }}
+                        </td>
+                        <td>
+                            {{ column.shop }}
+                        </td>
+                        <td>
+                            {{ column.category }}
+                        </td>
+                        <td>
+                            \{{ formatCurrency(column.cost) }}
+                        </td>
+                        <td>
+                            {{ column.hasSpecial }}
+                        </td>
+                        <td>
+                            {{ column.note }}
+                        </td>
+                        <td><button class="pure-button button-error" v-on:click.prevent="deleteColumn(column.id)">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                            削除
+                        </button></td>
                     </tr>
-                </table>
-            </div>
-            <div class="pure-u-1-3">
-                <table class="pure-table  pure-table-bordered categorytable">
-                    <tr v-for="tcategory in tcategories">
-                        <td>{{ tcategory.item }}</td><td>\{{ formatCurrency(tcategory.cost) }}</td>
-                    </tr>
-                </table>
+                </tbody>
+            </table>
+            <div class="pure-g">
+                <div class="pure-u-1-3">
+                    <table class="pure-table  pure-table-bordered monthtable">
+                        <tr v-for="tmonth in tmonths">
+                            <td>{{ tmonth.item }}</td><td>\{{ formatCurrency(tmonth.cost) }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="pure-u-1-3">
+                    <table class="pure-table  pure-table-bordered shoptable">
+                        <tr v-for="tshop in tshops">
+                            <td>{{ tshop.item }}</td><td>\{{ formatCurrency(tshop.cost) }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="pure-u-1-3">
+                    <table class="pure-table  pure-table-bordered categorytable">
+                        <tr v-for="tcategory in tcategories">
+                            <td>{{ tcategory.item }}</td><td>\{{ formatCurrency(tcategory.cost) }}</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
 	</div>
