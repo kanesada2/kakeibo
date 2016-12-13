@@ -3,10 +3,14 @@ html{
 }
 body{
 	height:100%;
+    color: #000;
 }
 hr{
 	border-top: 1px solid rgba(0, 0, 0, .1);
 	box-shadow(rgba(255, 255, 255, .1) 0 1px 0 inset);
+}
+table.main{
+    margin-bottom: 1em;
 }
 .maingrid{
 	height:100%;
@@ -25,20 +29,24 @@ hr{
 .hidden{
     display:none;
 }
+.button-normal,
 .button-success,
 .button-error,
 .button-warning,
 .button-secondary {
-    color: white;
+    color: #fff;
     border-radius: 4px;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+.button-normal {
+    background: #FF4081;
 }
 .button-success {
     background: rgb(28, 184, 65); /* this is a green */
 }
     
 .button-error {
-    background: rgb(202, 60, 60); /* this is a maroon */
+    background: #3F51B5;
 }
 .button-warning {
     background: rgb(223, 117, 20); /* this is an orange */

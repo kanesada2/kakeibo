@@ -108,11 +108,11 @@ function render() {
     },
     methods:{
             addColumn: function (event) {
-                if(this.inSpecial === undefined){
-                    var special = '×';
+                if(this.inSpecial){
+                    var special = '〇';
                 }
                 else{
-                    var special = '〇';
+                    var special = '×';
                 }
                 var column =  {
                     date: Date.parse(this.inDate),
@@ -148,7 +148,7 @@ function render() {
                 document.getElementById('inCategory').selectedIndex = 0;
                 document.getElementById('inCost').value = '';
                 document.getElementById('inSpecial').checked = false;
-                document.getElementById('inNote').value = '';
+                this.inSpecial = false;
                 getColumns(conds).then(function (data) {
                     maintable.$set('columns', data);
                     maintable.$set('tmonths', getItems('date',data));

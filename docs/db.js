@@ -50,10 +50,10 @@ function addToDb (table, data) {
     var store = transaction.objectStore(table);
     var req = store.add(data);
     req.onsuccess = function (event) {
-        console.log('登録成功。');
+        //console.log('登録成功。');
     };
     req.onerror = function (event) {
-        console.log('登録失敗:' + event.message);
+        //console.log('登録失敗:' + event.message);
     };
 }
 
