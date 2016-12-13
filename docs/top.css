@@ -42,6 +42,16 @@ table.main{
     margin: 2em .2em 0 .2em;
     font-family: 'Lobster', cursive;
 }
+.mark:hover{
+    animation: hurueru .2s  infinite;
+}
+@keyframes hurueru {
+    0% {transform: translate(0px, 0px) rotateZ(0deg)}
+    25% {transform: translate(2px, 2px) rotateZ(1deg)}
+    50% {transform: translate(0px, 2px) rotateZ(0deg)}
+    75% {transform: translate(2px, 0px) rotateZ(-1deg)}
+    100% {transform: translate(0px, 0px) rotateZ(0deg)}
+}
 .title{
     line-height:64px;
     font-size:3em;
