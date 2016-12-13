@@ -47,10 +47,10 @@
             <fieldset>
                 <label for="adShop">店名:</label>
                     <input type="text" id="adShop" v-model="adShop">
-                    <button v-if="adShop" v-on:click="addShop" class="pure-button pure-button-primary">追加</button>
+                    <button v-if="adShop" v-on:click.prevent="addShop" class="pure-button pure-button-primary">追加</button>
                 <label for="adCategory">分類:</label>
                     <input type="text" id="adCategory" v-model="adCategory">
-                    <button v-if="adCategory" v-on:click="addCategory" class="pure-button pure-button-primary">追加</button>
+                    <button v-if="adCategory" v-on:click.prevent="addCategory" class="pure-button pure-button-primary">追加</button>
             </fieldset>
             </form>
             </div>
@@ -64,12 +64,12 @@
                     <select id="dlShop" v-model="dsval">
                         <option v-for="shop in shops" value="{{ shop.key }}">{{ shop.value }}</option>
                     </select>
-                <button class="pure-button button-error" v-on:click="delShop">削除</button>
+                <button class="pure-button button-error" v-on:click.prevent="delShop">削除</button>
                 <label for="dlCategory">分類:</label>
                     <select id="dlCategory" v-model="dcval">
                         <option v-for="category in categories" value="{{ category.key }}">{{ category.value }}</option>
                     </select>
-                <button class="pure-button button-error" v-on:click="delCategory">削除</button>
+                <button class="pure-button button-error" v-on:click.prevent="delCategory">削除</button>
             </fieldset>
             </form>
             </div>
@@ -102,7 +102,7 @@
                             <option value="" selected disabled>分類</option>
                             <option v-for="category in categories" value="{{ category.value }}">{{ category.value }}</option>
                         </select></td>
-		            <td><input id="inCost" type="number" placeholder="金額" min="0" v-model="inCost"></td>
+		            <td><input id="inCost" type="number" placeholder="金額" min="0" v-model="inCost" required></td>
                     <td>
                         <label for="inSpecial" class="pure-checkbox">
                             <input id="inSpecial" type="checkbox"  v-model="inSpecial">特記
@@ -112,7 +112,7 @@
                          <textarea id="inNote" v-model="inNote"></textarea>
                          
                     </td>
-                    <td><button class="pure-button pure-button-primary" v-on:click="addColumn">追加</button></td>
+                    <td><button class="pure-button pure-button-primary" v-on:click.prevent="addColumn">追加</button></td>
 		        </tr>
                 </form>
                 <tr v-for="column in columns">

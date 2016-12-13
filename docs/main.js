@@ -27,6 +27,11 @@ function render() {
             },
             soSpecial: function (val) {
                 maintable.update();
+            },
+            formenu: function (val) {
+                maintable.$set('forField', prepareSelect());
+                document.getElementById('adShop').value = '';
+                document.getElementById('adCategory').value = '';
             }
         },
         computed: {
@@ -64,13 +69,21 @@ function render() {
             addShop: function (event) {
                 var shop =  {shop: this.adShop};
                 addToDb('shops', shop);
+                this.$set('formenu',prepareSelect());
             },
             addCategory: function (event) {
                 var category =  {category: this.adCategory};
                 addToDb('categories', category);
+                this.$set('formenu',prepareSelect());
             },
-            delShop: function (event) {deleteFromDb('shops', this.dsval);},
-            delCategory: function (event){deleteFromDb('categories', this.dcval);}
+            delShop: function (event){
+                deleteFromDb('shops', this.dsval);
+                this.$set('formenu',prepareSelect());
+            },
+            delCategory: function (event){
+                deleteFromDb('categories', this.dcval);
+                this.$set('formenu',prepareSelect());
+            }
     }
     })
     
@@ -79,8 +92,6 @@ function render() {
     data: {
         writable: true,
         forField: menu.$data.formenu,
-        onEdit: false,
-        editID: 0
     },
     computed: {
         defDate: function () {
@@ -116,6 +127,7 @@ function render() {
                     return;
                 }
                 addToDb('columns', column);
+                this.update();
             },
             deleteColumn: function (id){
                 if(window.confirm('本当に削除しますか？')){
@@ -130,7 +142,13 @@ function render() {
                     shop: menu.$data.soShop,
                     category: menu.$data.soCategory,
                     hasSpecial: menu.$data.soSpecial
-                }
+                } 
+                document.getElementById('inDate').value = this.defDate;
+                document.getElementById('inShop').selectedIndex = 0;
+                document.getElementById('inCategory').selectedIndex = 0;
+                document.getElementById('inCost').value = '';
+                document.getElementById('inSpecial').checked = false;
+                document.getElementById('inNote').value = '';
                 getColumns(conds).then(function (data) {
                     maintable.$set('columns', data);
                     maintable.$set('tmonths', getItems('date',data));

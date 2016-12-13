@@ -47,7 +47,6 @@ function opendb() {
 }
 function addToDb (table, data) {
     var transaction = db.transaction(table, 'readwrite');
-    console.log('called successfully');
     var store = transaction.objectStore(table);
     var req = store.add(data);
     req.onsuccess = function (event) {
@@ -63,10 +62,10 @@ function deleteFromDb (table, key) {
     var store = transaction.objectStore(table);
     var req = store.delete(parseInt(key));
     req.onsuccess = function (event) {
-        console.log('削除成功。');
+        //console.log('削除成功。');
     };
     req.onerror = function (event) {
-        console.log('削除失敗:' + event.message);
+        //console.log('削除失敗:' + event.message);
     };
 }
 
