@@ -26,10 +26,7 @@ table.main{
     height:100%;
     background: rgb(61, 79, 93);
     color:#fff;
-    overflow: scroll;
-}
-.left::-webkit-scrollbar {
-  display: none;
+    overflow-y: scroll;
 }
 .leftmenu{
 	list-style-type:none;
