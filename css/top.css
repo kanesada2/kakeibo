@@ -29,20 +29,18 @@ table.main{
     overflow-y: scroll;
 }
 .leftmenu{
+    padding-left:1em;
 	list-style-type:none;
 	line-height:3em;
-}
-.leftmenu form{
-    margin-left:-1em;
 }
 .logo{
     margin: 2em .2em 0 .2em;
     font-family: 'Lobster', cursive;
 }
 .mark:hover{
-    animation: hurueru 1s  infinite;
+    animation: hop 1s  infinite;
 }
-@keyframes hurueru {
+@keyframes hop {
     0% {transform: translate(0px, 0px) rotateZ(0deg)}
     25% {transform: translate(0px, -20px) rotateZ(10deg)}
     50% {transform: translate(0px, 0px) rotateZ(0deg)}
@@ -59,29 +57,29 @@ table.main{
 .hidden{
     display:none;
 }
-.button-normal,
-.button-success,
-.button-error,
-.button-warning,
-.button-secondary {
+.btn-normal,
+.btn-success,
+.btn-error,
+.btn-warning,
+.btn-secondary {
     color: #fff;
     border-radius: 4px;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
-.button-normal {
+.btn-normal {
     background: #FF4081;
 }
-.button-success {
+.btn-success {
     background: rgb(28, 184, 65); /* this is a green */
 }
     
-.button-error {
+.btn-error {
     background: #3F51B5;
 }
-.button-warning {
+.btn-warning {
     background: rgb(223, 117, 20); /* this is an orange */
 }
     
-.button-secondary {
+.btn-secondary {
     background: rgb(66, 184, 221); /* this is a light blue */
 }

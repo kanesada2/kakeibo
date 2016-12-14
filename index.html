@@ -4,30 +4,33 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta charset="UTF-8" />
 <title>家計簿</title>
-<link rel="stylesheet" href="https://unpkg.com/purecss@0.6.0/build/pure-min.css">
+<link rel="stylesheet" href="css/grid.css">
+<link rel="stylesheet" href="css/button.css">
+<link rel="stylesheet" href="css/form.css">
+<link rel="stylesheet" href="css/table.css">
 <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
-<link rel="stylesheet" href="top.css">
+<link rel="stylesheet" href="css/top.css">
 <script src="https://use.fontawesome.com/7edd816f83.js"></script>
-<script src="db.js"></script>
+<script src="scripts/db.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.28/vue.min.js"></script>
-<script src="main.js"></script>
+<script src="scripts/main.js"></script>
 </head>
 <body>
-<div class="pure-g maingrid">
-	<div class="pure-u-5-24 left" id="leftmenu">
+<div class="grid maingrid">
+	<div class="col-2 left" id="leftmenu">
         <div class="logo">
-            <object type="image/svg+xml" class="mark" data="logo.svg" width="48" height="48">
+            <object type="image/svg+xml" class="mark" data="img/logo.svg" width="48" height="48">
             </object>
             <span class="title">Kakeibo</span>
         </div>
         <ul class="leftmenu">
         <li>
-            <button class="pure-button button-normal" v-on:click='isHidden1=!isHidden1'>
+            <button class="btn btn-normal" v-on:click='isHidden1=!isHidden1'>
                 <i class="fa fa-search" aria-hidden="true"></i>
                 抽出メニュー
             </button>
             <div v-bind:class='{ hidden:isHidden1 }'>
-                <form class="pure-form pure-form-stacked">
+                <form class="unit">
             <fieldset>
                 <label for="soDatest">期間:</label>
                     <input type="date" v-model="soDatest" value="{{ defDatest }}">
@@ -51,22 +54,22 @@
             </div>
         </li>
         <li>
-            <button class="pure-button button-normal" v-on:click='isHidden2=!isHidden2'>
+            <button class="btn btn-normal" v-on:click='isHidden2=!isHidden2'>
                 <i class="fa fa-plus" aria-hidden="true"></i>
                 項目追加
             </button>
             <div v-bind:class='{ hidden:isHidden2 }'>
-                <form class="pure-form pure-form-stacked" id="adform">
+                <form class="unit" id="adform">
             <fieldset>
                 <label for="adShop">店名:</label>
                     <input type="text" id="adShop" v-model="adShop">
-                    <button v-show="adShop" v-on:click.prevent="addShop" class="pure-button button-normal">
+                    <button v-show="adShop" v-on:click.prevent="addShop" class="btn btn-normal">
                         <i class="fa fa-check" aria-hidden="true"></i>
                         追加
                     </button>
                 <label for="adCategory">分類:</label>
                     <input type="text" id="adCategory" v-model="adCategory">
-                    <button v-show="adCategory" v-on:click.prevent="addCategory" class="pure-button button-normal">
+                    <button v-show="adCategory" v-on:click.prevent="addCategory" class="btn btn-normal">
                         <i class="fa fa-check" aria-hidden="true"></i>
                         追加
                     </button>
@@ -75,18 +78,18 @@
             </div>
         </li>
         <li>
-            <button class="pure-button button-normal" v-on:click='isHidden3=!isHidden3'>
+            <button class="btn btn-normal" v-on:click='isHidden3=!isHidden3'>
                 <i class="fa fa-minus" aria-hidden="true"></i>
                 項目削除
             </button>
             <div v-bind:class='{ hidden:isHidden3 }'>
-                <form class="pure-form pure-form-stacked">
+                <form class="unit">
             <fieldset>
                 <label for="dlShop">店名:</label>
                     <select id="dlShop" v-model="dsval">
                         <option v-for="shop in shops" value="{{ shop.key }}">{{ shop.value }}</option>
                     </select>
-                <button class="pure-button button-error" v-on:click.prevent="delShop">
+                <button class="btn btn-error" v-on:click.prevent="delShop">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                     削除
                 </button>
@@ -94,7 +97,7 @@
                     <select id="dlCategory" v-model="dcval">
                         <option v-for="category in categories" value="{{ category.key }}">{{ category.value }}</option>
                     </select>
-                <button class="pure-button button-error" v-on:click.prevent="delCategory">
+                <button class="btn btn-error" v-on:click.prevent="delCategory">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                     削除
                 </button>
@@ -104,9 +107,9 @@
         </li>
         </ul>
     </div>
-	<div class="pure-u-19-24" id="columntable">
+	<div class="col-10" id="columntable">
 		<div class="right">
-            <table class="pure-table pure-table-horizontal main" >
+            <table class="main striped">
                 <thead>
                     <tr>
                         <th>日付</th>
@@ -120,7 +123,7 @@
                 </thead>
 
                 <tbody>
-                    <form class="pure-form">
+                    <form>
                     <tr>
                         <td><input id="inDate" type="date" v-model="inDate" value="{{ defDate }}"></td>
                         <td><select id="inShop"  v-model="inShop">
@@ -140,7 +143,7 @@
                          <td>
                              <textarea id="inNote" v-model="inNote"></textarea>
                         </td>
-                        <td><button class="pure-button button-normal" v-on:click.prevent="addColumn">
+                        <td><button class="btn btn-normal" v-on:click.prevent="addColumn">
                             <i class="fa fa-check" aria-hidden="true"></i>
                             追加
                         </button></td>
@@ -165,30 +168,30 @@
                         <td>
                             {{ column.note }}
                         </td>
-                        <td><button class="pure-button button-error" v-on:click.prevent="deleteColumn(column.id)">
+                        <td><button class="btn btn-error" v-on:click.prevent="deleteColumn(column.id)">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                             削除
                         </button></td>
                     </tr>
                 </tbody>
             </table>
-            <div class="pure-g">
-                <div class="pure-u-1-3">
-                    <table class="pure-table  pure-table-bordered monthtable">
+            <div class="grid">
+                <div class="col-4">
+                    <table class="bordered monthtable">
                         <tr v-for="tmonth in tmonths">
                             <td>{{ tmonth.item }}</td><td>\{{ formatCurrency(tmonth.cost) }}</td>
                         </tr>
                     </table>
                 </div>
-                <div class="pure-u-1-3">
-                    <table class="pure-table  pure-table-bordered shoptable">
+                <div class="col-4">
+                    <table class="bordered shoptable">
                         <tr v-for="tshop in tshops">
                             <td>{{ tshop.item }}</td><td>\{{ formatCurrency(tshop.cost) }}</td>
                         </tr>
                     </table>
                 </div>
-                <div class="pure-u-1-3">
-                    <table class="pure-table  pure-table-bordered categorytable">
+                <div class="col-4">
+                    <table class="bordered categorytable">
                         <tr v-for="tcategory in tcategories">
                             <td>{{ tcategory.item }}</td><td>\{{ formatCurrency(tcategory.cost) }}</td>
                         </tr>
