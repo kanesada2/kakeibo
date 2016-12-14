@@ -49,7 +49,8 @@ table.main{
 }
 .title{
     line-height:64px;
-    font-size:3em;
+    vertical-align:top;
+    font-size:2.5em;
 }
 .right{
     padding-left:1em;
