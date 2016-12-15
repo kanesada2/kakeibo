@@ -72,7 +72,7 @@ table.main{
     position:fixed;
     left:1em;
     bottom:.5em;
-    padding-top:.5em;
+    padding:.5em;
     text-align:center;
     border-radius:48px;
     -webkit-box-sizing: border-box;
@@ -83,18 +83,6 @@ table.main{
 }
 .tglcheck{
     display:none;
-}
-.tglover{
-    display:none;
-    width:48px;
-    height:48px;
-    position:fixed;
-    left:1em;
-    bottom:.5em;
-    border-radius:48px;
-    z-index:4;
-    cursor:pointer;
-    opacity:0;
 }
 .btn-normal,
 .btn-success,
@@ -124,9 +112,6 @@ table.main{
     .tglbtn{
         display:block;
     }
-    .tglover{
-        display:block;
-    }
     .tglcheck:checked ~ .content{
         -webkit-transform: translateX(230px);
         -ms-transform: translateX(230px);
@@ -139,7 +124,7 @@ table.main{
     .tglcheck:checked ~ .tglbtn{
         background:#9E9E9E;
     }
-    .tglcheck:checked ~ .tglbtn object{
+    .tglcheck:checked ~ .tglbtn img{
         transform: scale(-1, 1);
     }
 }
