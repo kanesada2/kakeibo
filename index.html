@@ -17,10 +17,19 @@
 </head>
 <body>
 <div class="grid maingrid">
-	<div class="col-2 left" id="leftmenu">
+    <input type="checkbox" id="tglcheck" class="tglcheck">
+    <div class="tglbtn">
+        <object type="image/svg+xml" class="tglcontent" data="img/logo.svg" width="32" height="32">
+        </object>
+        <label for="tglcheck" class="tglover">
+        </label>
+    </div>
+    <div class="col-2 left collapsible" id="leftmenu">
         <div class="logo">
-            <object type="image/svg+xml" class="mark" data="img/logo.svg" width="48" height="48">
-            </object>
+            <span class="mark">
+                <object type="image/svg+xml" class="rabbit" data="img/logo.svg" width="48" height="48">
+                </object>
+            </span>
             <span class="title">Kakeibo</span>
         </div>
         <ul class="leftmenu">
@@ -33,7 +42,7 @@
                 <form class="unit">
             <fieldset>
                 <label for="soDatest">期間:</label>
-                    <input type="date" v-model="soDatest" value="{{ defDatest }}">
+                    <input type="date" v-model="soDatest" max="{{ defDateed }}" value="{{ defDatest }}">
                 <label for="soDateed">から</label>
                     <input type="date" v-model="soDateed" value="{{ defDateed }}">
                 <label for="soShop">店名:</label>
@@ -107,7 +116,7 @@
         </li>
         </ul>
     </div>
-	<div class="col-10" id="columntable">
+	<div class="col-10 content" id="columntable">
 		<div class="right">
             <table class="main striped">
                 <thead>
@@ -141,7 +150,7 @@
                             </label>
                         </td>
                          <td>
-                             <textarea id="inNote" v-model="inNote"></textarea>
+                             <textarea id="inNote" v-model="inNote" class="inNote"></textarea>
                         </td>
                         <td><button class="btn btn-normal" v-on:click.prevent="addColumn">
                             <i class="fa fa-check" aria-hidden="true"></i>
