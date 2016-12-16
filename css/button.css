@@ -8,7 +8,7 @@
     border: none rgba(0, 0, 0, 0);  /*IE9 + everything else*/
     background-color: #E6E6E6;
     text-decoration: none;
-    border-radius: 2px;
+    border-radius: 4px;
     cursor:pointer;
     transition: all .3s;
 }
@@ -34,4 +34,13 @@
     
 .btn-secondary {
     background: rgb(66, 184, 221); /* this is a light blue */
+}
+.btn-normal,
+.btn-success,
+.btn-error,
+.btn-warning,
+.btn-secondary {
+    color: #fff;
+    border-radius: 4px;
+    
 }

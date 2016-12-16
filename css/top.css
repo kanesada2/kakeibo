@@ -81,18 +81,6 @@ table.main{
     z-index:3;
     box-shadow:5px 5px 5px rgba(0,0,0,0.2);
 }
-.tglcheck{
-    display:none;
-}
-.btn-normal,
-.btn-success,
-.btn-error,
-.btn-warning,
-.btn-secondary {
-    color: #fff;
-    border-radius: 4px;
-    
-}
 @media(max-width:1280px){
     .collapsible{
         position:absolute;
