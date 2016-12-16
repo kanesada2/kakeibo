@@ -81,6 +81,9 @@ table.main{
     z-index:3;
     box-shadow:5px 5px 5px rgba(0,0,0,0.2);
 }
+.tglcheck{
+    display:none;
+}
 @media(max-width:1280px){
     .collapsible{
         position:absolute;
@@ -94,7 +97,6 @@ table.main{
         opacity:0;
     }
     .content{
-        width:100%;
         z-index:1;
     }
     .tglbtn{
