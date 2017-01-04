@@ -165,6 +165,9 @@ function render() {
                 if(mode == 'slush'){
                     return yy + '/' + mm + '/' + dd;
                 }else if(mode == 'hyphen'){
+                if(mm < 10){
+                    mm = '0' + dd;
+                }
                 if(dd < 10){
                     dd = '0' + dd;
                 }
