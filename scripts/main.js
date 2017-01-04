@@ -41,6 +41,9 @@ function render() {
                 yy = date.getFullYear();
                 mm = date.getMonth() + 1;
                 dd = date.getDate();
+                if(mm < 10){
+                    mm = '0' + mm;
+                }
                 if(dd < 10){
                     dd = '0' + dd;
                 }
@@ -51,6 +54,9 @@ function render() {
                 yy = date.getFullYear();
                 mm = date.getMonth() + 1;
                 dd = date.getDate();
+                if(mm < 10){
+                    mm = '0' + mm;
+                }
                 if(dd < 10){
                     dd = '0' + dd;
                 }
@@ -142,7 +148,7 @@ function render() {
                     shop: menu.$data.soShop,
                     category: menu.$data.soCategory,
                     hasSpecial: menu.$data.soSpecial
-                } 
+                }
                 document.getElementById('inDate').value = this.defDate;
                 document.getElementById('inShop').selectedIndex = 0;
                 document.getElementById('inCategory').selectedIndex = 0;
@@ -166,7 +172,7 @@ function render() {
                     return yy + '/' + mm + '/' + dd;
                 }else if(mode == 'hyphen'){
                 if(mm < 10){
-                    mm = '0' + dd;
+                    mm = '0' + mm;
                 }
                 if(dd < 10){
                     dd = '0' + dd;
