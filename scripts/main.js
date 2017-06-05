@@ -76,19 +76,23 @@ function render() {
                 var shop =  {shop: this.adShop};
                 addToDb('shops', shop);
                 this.$set('formenu',prepareSelect());
+                maintable.showToast("追加しました");
             },
             addCategory: function (event) {
                 var category =  {category: this.adCategory};
                 addToDb('categories', category);
                 this.$set('formenu',prepareSelect());
+                maintable.showToast("追加しました");
             },
             delShop: function (event){
                 deleteFromDb('shops', this.dsval);
                 this.$set('formenu',prepareSelect());
+                maintable.showToast("削除しました");
             },
             delCategory: function (event){
                 deleteFromDb('categories', this.dcval);
                 this.$set('formenu',prepareSelect());
+                maintable.showToast("削除しました");
             }
     }
     })
