@@ -123,6 +123,9 @@ function getColumns (conds) {
     var transaction = db.transaction('columns', 'readonly');
     var columnsStore = transaction.objectStore('columns');
     var index = columnsStore.index(iname);
+    if(conds.datest > conds.dateed){
+        lower = upper;
+    }
     var range = IDBKeyRange.bound(lower, upper);
     return new Promise(function (resolve,reject){
         var columns = [];

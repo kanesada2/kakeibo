@@ -97,6 +97,7 @@ function render() {
     el: '#columntable',
     data: {
         writable: true,
+        hiddenToast: true,
         forField: menu.$data.formenu,
     },
     computed: {
@@ -133,11 +134,13 @@ function render() {
                     return;
                 }
                 addToDb('columns', column);
+                this.showToast("追加しました");
                 this.update();
             },
             deleteColumn: function (id){
                 if(window.confirm('本当に削除しますか？')){
                     deleteFromDb('columns', id);
+                    this.showToast("削除しました");
                     this.update();
                 }
             },
@@ -184,6 +187,14 @@ function render() {
                 var num = new String(str).replace(/,/g, "");
                 while(num != (num = num.replace(/^(-?\d+)(\d{3})/, "$1,$2")));
                 return num;
+            },
+            showToast: function (str){
+                var toast = document.getElementById("toast");
+                document.getElementById("toasttxt").textContent = str;
+                toast.classList.add("show");
+                window.setTimeout(function(){
+                    toast.classList.remove("show");
+                }, 2000);
             }
     }
 })

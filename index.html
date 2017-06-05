@@ -16,6 +16,9 @@
 <script src="scripts/main.js"></script>
 </head>
 <body>
+<div class="toast" id="toast">
+    <div class="toastmsg"><img src="img/logo.svg" width="64" height="64" class="rabbitm"><span class="toasttxt" id="toasttxt"></span></div>    
+</div>
 <div class="grid maingrid">
     <input type="checkbox" id="tglcheck" class="tglcheck">
     <label for="tglcheck" class="btn tglbtn">
@@ -40,7 +43,7 @@
                 <label for="soDatest">期間:</label>
                     <input type="date" v-model="soDatest" max="{{ defDateed }}" value="{{ defDatest }}">
                 <label for="soDateed">から</label>
-                    <input type="date" v-model="soDateed" value="{{ defDateed }}">
+                    <input type="date" v-model="soDateed"  min="{{ defDatest }}" value="{{ defDateed }}">
                 <label for="soShop">店名:</label>
                     <select id="soShop" v-model="soShop">
                         <option value="">選択しない</option>
